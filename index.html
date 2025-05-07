@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#64748b', // Slate-500 - more muted blue-gray
+                        secondary: '#334155', // Slate-700
+                        accent: '#94a3b8', // Slate-400
+                        dark: '#0f172a', // Slate-900
+                        darker: '#020617', // Slate-950
+                        light: '#f1f5f9', // Slate-100
+                        muted: '#cbd5e1', // Slate-300
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'fade-in': 'fadeIn 1s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'slide-down': 'slideDown 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            border-radius: 3px;
+            background-color: #1e293b;
+            overflow: hidden;
+        }
+        
+        .progress-bar div {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #64748b, #94a3b8);
+            transition: width 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        
+        .project-card {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(30, 41, 59, 0.1);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4), -8px -8px 20px rgba(30, 41, 59, 0.15);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #64748b, #94a3b8);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .active::after {
+            width: 100%;
+        }
+        
+        .skill-icon {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(30, 41, 59, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .skill-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.3), -8px -8px 15px rgba(30, 41, 59, 0.15);
+        }
+        
+        .timeline-dot {
+            background: linear-gradient(145deg, #64748b, #94a3b8);
+            box-shadow: 0 0 0 4px #1e293b;
+        }
+        
+        .contact-icon {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(30, 41, 59, 0.1);
+        }
+        
+        .social-icon {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2), -3px -3px 8px rgba(30, 41, 59, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(30, 41, 59, 0.15);
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            margin-top: 8px;
+            background: linear-gradient(90deg, #64748b, #94a3b8);
+        }
+        
+        .form-input {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #f1f5f9;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            border-color: #64748b;
+            box-shadow: 0 0 0 2px rgba(100, 116, 139, 0.2);
+            outline: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(145deg, #64748b, #475569);
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2), -3px -3px 8px rgba(30, 41, 59, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(145deg, #475569, #64748b);
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(30, 41, 59, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #64748b;
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2), -3px -3px 8px rgba(30, 41, 59, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline:hover {
+            background: rgba(100, 116, 139, 0.1);
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(30, 41, 59, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background-color: #94a3b8;
+            margin-left: 2px;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: none;
+            }
+            
+            .mobile-menu.show {
+                display: flex;
+            }
+        }
+        
+        /* Subtle background pattern */
+        .bg-pattern {
+            background-color: #0f172a;
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(90deg, #94a3b8, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+    <!-- Navigation -->
+    <header class="fixed w-full bg-dark/90 backdrop-blur-sm shadow-md z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold">
+                <span class="text-light">MY</span><span class="text-primary">Portfolio</span>
+            </a>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link active font-medium text-light hover:text-muted transition-colors">Home</a>
+                <a href="#about" class="nav-link font-medium text-light hover:text-muted transition-colors">About</a>
+                <a href="#skills" class="nav-link font-medium text-light hover:text-muted transition-colors">Skills</a>
+                <a href="#experience" class="nav-link font-medium text-light hover:text-muted transition-colors">Experience</a>
+                <a href="#projects" class="nav-link font-medium text-light hover:text-muted transition-colors">Projects</a>
+                <a href="#contact" class="nav-link font-medium text-light hover:text-muted transition-colors">Contact</a>
+            </div>
+            
+            <button id="mobile-menu-button" class="md:hidden text-light focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </nav>
+        
+        <div id="mobile-menu" class="mobile-menu flex-col items-center py-4 bg-dark/95 backdrop-blur-sm shadow-md">
+            <a href="#home" class="py-2 px-4 w-full text-center text-light hover:text-muted transition-colors">Home</a>
+            <a href="#about" class="py-2 px-4 w-full text-center text-light hover:text-muted transition-colors">About</a>
+            <a href="#skills" class="py-2 px-4 w-full text-center text-light hover:text-muted transition-colors">Skills</a>
+            <a href="#experience" class="py-2 px-4 w-full text-center text-light hover:text-muted transition-colors">Experience</a>
+            <a href="#projects" class="py-2 px-4 w-full text-center text-light hover:text-muted transition-colors">Projects</a>
+            <a href="#contact" class="py-2 px-4 w-full text-center text-light hover:text-muted transition-colors">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center bg-pattern pt-16">
+        <div class="container mx-auto px-6 py-16 md:py-24 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 text-center md:text-left mb-12 md:mb-0 animate-fade-in">
+                <p class="text-primary font-medium mb-2">Welcome to my portfolio</p>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+                    Hi, I'm <span class="gradient-text">Muhammad Syafwan Nabil</span>
+                </h1>
+                <h2 class="text-2xl md:text-3xl font-medium text-accent mb-6">
+                    <span id="typed-text" class="text-muted"></span>
+                    <span class="cursor">|</span>
+                </h2>
+                <p class="text-lg text-muted mb-8 max-w-lg mx-auto md:mx-0">
+                    A passionate professional dedicated to creating impactful solutions and delivering exceptional results.
+                </p>
+                <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                    <a href="#contact" class="px-6 py-3 btn-primary text-light font-medium rounded-full">
+                        Contact Me
+                    </a>
+                    <a href="#projects" class="px-6 py-3 btn-outline text-primary font-medium rounded-full">
+                        View Projects
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full bg-secondary/20 flex items-center justify-center animate-bounce-slow">
+                    <img src="123.jpg" alt="Your Name" class="w-56 h-56 md:w-72 md:h-72 rounded-full object-cover border-4 border-secondary shadow-lg">
+                    <div class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-light font-bold text-lg shadow-lg">
+                        Hire Me!
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#about" class="text-primary">
+                <i class="fas fa-chevron-down text-3xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-darker">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title inline-block mx-auto">About Me</h2>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="123.jpg" alt="About Me" class="rounded-lg shadow-xl w-full h-auto transform hover:scale-[1.02] transition-transform duration-500">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-bold mb-4 gradient-text inline-block">Who am I?</h3>
+                    <p class="text-muted mb-6">
+                        I am a student at Politeknik IDN with a strong passion for technology, especially in web and mobile application development. I enjoy creating clean, functional, and user-friendly apps while constantly learning new tools and frameworks. For me, technology is not just about code — it's a powerful medium to bring value, share knowledge, and inspire others. I believe in using my skills for good, combining both technical excellence and meaningful purpose.
+                    </p>
+                  
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div>
+                            <p class="font-medium text-light">Name:</p>
+                            <p class="text-muted">Muhammad Syafwan Nabil</p>
+                        </div>
+                        <div>
+                            <p class="font-medium text-light">Email:</p>
+                            <p class="text-muted">shonabil27@gmail.com</p>
+                        </div>
+                        <div>
+                            <p class="font-medium text-light">Location:</p>
+                            <p class="text-muted">Bontang, Indonesia</p>
+                        </div>
+                        <div>
+                            <p class="font-medium text-light">Availability:</p>
+                            <p class="text-primary font-medium">Available for hire</p>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="px-6 py-3 btn-primary text-light font-medium rounded-full inline-block">
+                        Download CV <i class="fas fa-download ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-dark">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title inline-block mx-auto">My Skills</h2>
+                <p class="text-muted mt-4 max-w-2xl mx-auto">
+                    Here are some of the skills I've acquired throughout my professional journey.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+               
+                
+               
+            </div>
+            
+            <div class="mt-16 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 text-center">
+                <div class="p-4 skill-icon rounded-lg">
+                    <i class="fab fa-html5 text-4xl text-orange-400 mb-2"></i>
+                    <p class="font-medium text-light">HTML5</p>
+                </div>
+                
+                <div class="p-4 skill-icon rounded-lg">
+                    <i class="fab fa-css3-alt text-4xl text-blue-400 mb-2"></i>
+                    <p class="font-medium text-light">CSS3</p>
+                </div>
+                
+                <div class="p-4 skill-icon rounded-lg">
+                    <i class="fab fa-js text-4xl text-yellow-300 mb-2"></i>
+                    <p class="font-medium text-light">JavaScript</p>
+                </div>
+                
+                <div class="p-4 skill-icon rounded-lg">
+                    <i class="fab fa-php text text-4xl text-purple-300 mb-2"></i>
+                    <p class="font-medium text-light">PHP</p>
+                </div>
+                
+                <div class="p-4 skill-icon rounded-lg">
+                    <i class="fab fa-laravel text-4xl text-red-400 mb-2"></i>
+                    <p class="font-medium text-light">Laravel</p>
+                </div>
+                
+                <div class="p-4 skill-icon rounded-lg">
+                    <i class="fa-b fa-flutter text-4xl text-blue-400 mb-2"></i>
+                    <p class="font-medium text-light">Dart/Flutter</p>
+                </div>
+              
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-darker">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title inline-block mx-auto">Work Experience</h2>
+                <p class="text-muted mt-4 max-w-2xl mx-auto">
+                    My professional journey and the companies I've had the pleasure to work with.
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="relative pl-8 sm:pl-32 py-6 group">
+                    <div class="flex flex-col sm:flex-row items-start mb-1 group-hover:text-primary transition-colors duration-300">
+                        <span class="absolute left-0 sm:left-24 top-7 flex items-center justify-center w-8 h-8 timeline-dot rounded-full text-light font-bold group-hover:scale-110 transition duration-300">
+                            <i class="fas fa-briefcase"></i>
+                        </span>
+                        <div class="w-full sm:w-24 text-xs sm:text-right mr-8 text-muted mt-1 sm:mt-0">
+                            2024 - Present
+                        </div>
+                        <h3 class="text-xl font-bold text-light">student</h3>
+                    </div>
+                    <h4 class="text-primary font-medium mb-2">Company Name</h4>
+                    <p class="text-muted">
+                        Polythecnic IDN
+                    </p>
+                    <span class="absolute top-7 left-4 h-full w-0.5 bg-secondary block"></span>
+                </div>
+                
+                <!-- <div class="relative pl-8 sm:pl-32 py-6 group">
+                    <div class="flex flex-col sm:flex-row items-start mb-1 group-hover:text-primary transition-colors duration-300">
+                        <span class="absolute left-0 sm:left-24 top-7 flex items-center justify-center w-8 h-8 timeline-dot rounded-full text-light font-bold group-hover:scale-110 transition duration-300">
+                            <i class="fas fa-briefcase"></i>
+                        </span>
+                        <div class="w-full sm:w-24 text-xs sm:text-right mr-8 text-muted mt-1 sm:mt-0">
+                            2018 - 2021
+                        </div>
+                        <h3 class="text-xl font-bold text-light">Web Developer</h3>
+                    </div>
+                    <h4 class="text-primary font-medium mb-2">Previous Company</h4>
+                    <p class="text-muted">
+                        Developed and maintained [Type of Applications] using [Technologies]. Implemented [Feature/System] that improved [Metric] by [Percentage]. Collaborated with designers to create responsive and user-friendly interfaces.
+                    </p>
+                    <span class="absolute top-7 left-4 h-full w-0.5 bg-secondary block"></span>
+                </div>
+                
+                <div class="relative pl-8 sm:pl-32 py-6 group">
+                    <div class="flex flex-col sm:flex-row items-start mb-1 group-hover:text-primary transition-colors duration-300">
+                        <span class="absolute left-0 sm:left-24 top-7 flex items-center justify-center w-8 h-8 timeline-dot rounded-full text-light font-bold group-hover:scale-110 transition duration-300">
+                            <i class="fas fa-briefcase"></i>
+                        </span>
+                        <div class="w-full sm:w-24 text-xs sm:text-right mr-8 text-muted mt-1 sm:mt-0">
+                            2016 - 2018
+                        </div>
+                        <h3 class="text-xl font-bold text-light">Junior Developer</h3>
+                    </div>
+                    <h4 class="text-primary font-medium mb-2">First Company</h4>
+                    <p class="text-muted">
+                        Assisted in the development of [Project] using [Technologies]. Participated in code reviews and implemented feedback to improve code quality. Collaborated with the QA team to identify and fix bugs.
+                    </p>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-dark">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title inline-block mx-auto">My Projects</h2>
+                <p class="text-muted mt-4 max-w-2xl mx-auto">
+                    Here are some of the projects I've worked on throughout my career.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="project-card rounded-xl overflow-hidden">
+                    <div class="relative overflow-hidden">
+                        <img src="https://via.placeholder.com/600x400" alt="Project 1" class="w-full h-48 object-cover transition-transform duration-700 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-60"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-light">Booking ticket system</h3>
+                        <p class="text-muted mb-4">
+                            A brief description of the project, its purpose, and the technologies used to build it.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">HTML</span>
+                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">TailwindCSS</span>
+                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">Laravel</span>
+                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">JavaScript</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-primary hover:text-accent transition duration-300">
+                                <i class="fas fa-external-link-alt mr-1"></i> Live Demo
+                            </a>
+                            <a href="https://github.com/muhsyafwannabil" class="text-primary hover:text-accent transition duration-300">
+                                <i class="fab fa-github mr-1"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card rounded-xl overflow-hidden">
+                    <div class="relative overflow-hidden">
+                        <img src="https://via.placeholder.com/600x400" alt="Project 2" class="w-full h-48 object-cover transition-transform duration-700 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-60"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-light">Muslim Apps</h3>
+                        <p class="text-muted mb-4">
+                            A brief description of the project, its purpose, and the technologies used to build it.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">Laravel</span>
+                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">TailwindCSS</span>
+                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">JavaScript</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-primary hover:text-accent transition duration-300">
+                                <i class="fas fa-external-link-alt mr-1"></i> Live Demo
+                            </a>
+                            <a href="https://github.com/muhsyafwannabil" class="text-primary hover:text-accent transition duration-300">
+                                <i class="fab fa-github mr-1"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card rounded-xl overflow-hidden">
+                    <div class="relative overflow-hidden">
+                        <img src="https://via.placeholder.com/600x400" alt="Project 3" class="w-full h-48 object-cover transition-transform duration-700 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-60"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-light">My Portfolio</h3>
+                        <p class="text-muted mb-4">
+                            A brief description of the project, its purpose, and the technologies used to build it.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">HTML</span>
+                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">CSS</span>
+                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">JavaScript</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-primary hover:text-accent transition duration-300">
+                                <i class="fas fa-external-link-alt mr-1"></i> Live Demo
+                            </a>
+                            <a href="https://github.com/muhsyafwannabil" class="text-primary hover:text-accent transition duration-300">
+                                <i class="fab fa-github mr-1"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="px-6 py-3 btn-primary text-light font-medium rounded-full inline-block">
+                    View All Projects <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-darker">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title inline-block mx-auto">Get In Touch</h2>
+                <p class="text-muted mt-4 max-w-2xl mx-auto">
+                    Feel free to reach out if you have any questions or would like to work together.
+                </p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-10">
+                <div class="md:w-1/2">
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-light mb-2">Your Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 rounded-lg form-input">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-light mb-2">Your Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg form-input">
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-light mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg form-input">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-light mb-2">Your Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 rounded-lg form-input"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full px-6 py-3 btn-primary text-light font-medium rounded-lg">
+                            Send Message <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="bg-dark p-8 rounded-xl shadow-lg h-full">
+                        <h3 class="text-2xl font-bold mb-6 text-light">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-12 h-12 contact-icon rounded-full flex items-center justify-center text-primary">
+                                    <i class="fas fa-map-marker-alt text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-medium text-light">Location</h4>
+                                    <p class="text-muted">Bontang, indonesia</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-12 h-12 contact-icon rounded-full flex items-center justify-center text-primary">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-medium text-light">Email</h4>
+                                    <p class="text-muted">shonabil27@gmail.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-12 h-12 contact-icon rounded-full flex items-center justify-center text-primary">
+                                    <i class="fas fa-phone text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-medium text-light">Phone</h4>
+                                    <p class="text-muted">+62 81319388661</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="text-lg font-medium mb-4 text-light">Follow Me</h4>
+                            <div class="flex space-x-4">
+                                <a href="https://www.linkedin.com/in/muhammad-syafwan-nabil-94a357317/" class="w-10 h-10 social-icon rounded-full flex items-center justify-center text-primary hover:text-light transition-colors">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="https://github.com/muhsyafwannabil" class="w-10 h-10 social-icon rounded-full flex items-center justify-center text-primary hover:text-light transition-colors">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="https://x.com/syafwannabil12" class="w-10 h-10 social-icon rounded-full flex items-center justify-center text-primary hover:text-light transition-colors">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="https://www.instagram.com/shonabil/" class="w-10 h-10 social-icon rounded-full flex items-center justify-center text-primary hover:text-light transition-colors">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darker text-light py-12 border-t border-secondary/20">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="text-2xl font-bold text-light">MY<span class="text-primary">Portfolio</span></a>
+                    <p class="text-muted mt-2">Web Developer & Mobile Apps Developer</p>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#home" class="text-muted hover:text-primary transition duration-300">Home</a>
+                    <a href="#about" class="text-muted hover:text-primary transition duration-300">About</a>
+                    <a href="#skills" class="text-muted hover:text-primary transition duration-300">Skills</a>
+                    <a href="#experience" class="text-muted hover:text-primary transition duration-300">Experience</a>
+                    <a href="#projects" class="text-muted hover:text-primary transition duration-300">Projects</a>
+                    <a href="#contact" class="text-muted hover:text-primary transition duration-300">Contact</a>
+                </div>
+            </div>
+            
+            <hr class="border-secondary/20 my-8">
+            
+            <div class="text-center text-muted">
+                <p>&copy; 2024 syafwan nabil. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 bg-primary text-light rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-secondary">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('show');
+            mobileMenuButton.innerHTML = mobileMenu.classList.contains('show') 
+                ? '<i class="fas fa-times text-2xl"></i>' 
+                : '<i class="fas fa-bars text-2xl"></i>';
+        });
+        
+        // Typed Text Effect
+        const typedTextElement = document.getElementById('typed-text');
+        const textArray = ["Web Developer", "Mobile App Developer", "Problem Solver"];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingDelay = 150;
+        
+        function typeText() {
+            const currentText = textArray[textIndex];
+            
+            if (isDeleting) {
+                typedTextElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                typingDelay = 50;
+            } else {
+                typedTextElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                typingDelay = 150;
+            }
+            
+            if (!isDeleting && charIndex === currentText.length) {
+                isDeleting = true;
+                typingDelay = 1000;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % textArray.length;
+                typingDelay = 500;
+            }
+            
+            setTimeout(typeText, typingDelay);
+        }
+        
+        // Start typing effect
+        setTimeout(typeText, 1000);
+        
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (mobileMenu.classList.contains('show')) {
+                        mobileMenu.classList.remove('show');
+                        mobileMenuButton.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
+                    }
+                }
+            });
+        });
+        
+        // Highlight active navigation link based on scroll position
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Animate skill bars on scroll
+        const skillSection = document.getElementById('skills');
+        const progressBars = document.querySelectorAll('.progress-bar div');
+        let animated = false;
+        
+        window.addEventListener('scroll', () => {
+            if (isInViewport(skillSection) && !animated) {
+                progressBars.forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+                animated = true;
+            }
+        });
+        
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.bottom >= 0
+            );
+        }
+    </script>
+</body>
+</html>
