@@ -3,29 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Portfolio</title>
+    <title>Muhammad Syafwan Nabil - Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#64748b', // Slate-500 - more muted blue-gray
-                        secondary: '#334155', // Slate-700
-                        accent: '#94a3b8', // Slate-400
+                        primary: '#6366f1', // Indigo-500 - more vibrant
+                        secondary: '#4f46e5', // Indigo-600
+                        accent: '#818cf8', // Indigo-400
                         dark: '#0f172a', // Slate-900
                         darker: '#020617', // Slate-950
                         light: '#f1f5f9', // Slate-100
                         muted: '#cbd5e1', // Slate-300
+                        card: '#1e293b', // Slate-800
                     },
                     animation: {
                         'bounce-slow': 'bounce 3s infinite',
                         'fade-in': 'fadeIn 1s ease-in-out',
                         'slide-up': 'slideUp 0.5s ease-out',
                         'slide-down': 'slideDown 0.5s ease-out',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'spin-reverse': 'spin-reverse 15s linear infinite',
+                        'spin-medium': 'spin 20s linear infinite',
                     },
                     keyframes: {
                         fadeIn: {
@@ -39,6 +43,10 @@
                         slideDown: {
                             '0%': { transform: 'translateY(-20px)', opacity: '0' },
                             '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        'spin-reverse': {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '100%': { transform: 'rotate(-360deg)' }
                         }
                     }
                 }
@@ -46,16 +54,17 @@
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap');
         
         body {
-            font-family: 'Raleway', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: #0f172a;
             color: #f1f5f9;
+            overflow-x: hidden;
         }
         
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Montserrat', sans-serif;
         }
         
         .progress-bar {
@@ -63,23 +72,70 @@
             border-radius: 3px;
             background-color: #1e293b;
             overflow: hidden;
+            position: relative;
         }
         
         .progress-bar div {
             height: 100%;
             border-radius: 3px;
-            background: linear-gradient(90deg, #64748b, #94a3b8);
+            background: linear-gradient(90deg, #6366f1, #818cf8);
+            position: relative;
             transition: width 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        
+        .progress-bar div::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 5px;
+            background: #fff;
+            border-radius: 3px;
+            box-shadow: 0 0 10px 2px rgba(99, 102, 241, 0.7);
+            animation: pulse 2s infinite;
         }
         
         .project-card {
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
             background: linear-gradient(145deg, #1e293b, #0f172a);
             box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(30, 41, 59, 0.1);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, #6366f1, transparent, #6366f1, transparent);
+            z-index: -1;
+            transform: scale(1.05);
+            animation: animateGradient 3s linear infinite;
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .project-card:hover::before {
+            opacity: 1;
+        }
+        
+        @keyframes animateGradient {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 300% 300%;
+            }
         }
         
         .project-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-8px) scale(1.02);
             box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4), -8px -8px 20px rgba(30, 41, 59, 0.15);
         }
         
@@ -94,7 +150,7 @@
             height: 2px;
             bottom: -2px;
             left: 0;
-            background: linear-gradient(90deg, #64748b, #94a3b8);
+            background: linear-gradient(90deg, #6366f1, #818cf8);
             transition: width 0.3s ease;
         }
         
@@ -110,32 +166,94 @@
             background: linear-gradient(145deg, #1e293b, #0f172a);
             box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(30, 41, 59, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .skill-icon::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: linear-gradient(45deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+            top: -25%;
+            left: -25%;
+            transform: rotate(45deg);
+            transition: transform 0.6s ease;
+        }
+        
+        .skill-icon:hover::before {
+            transform: rotate(45deg) translateX(100%);
         }
         
         .skill-icon:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.05);
             box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.3), -8px -8px 15px rgba(30, 41, 59, 0.15);
         }
         
         .timeline-dot {
-            background: linear-gradient(145deg, #64748b, #94a3b8);
-            box-shadow: 0 0 0 4px #1e293b;
+            background: linear-gradient(145deg, #6366f1, #818cf8);
+            box-shadow: 0 0 0 4px #1e293b, 0 0 0 8px rgba(99, 102, 241, 0.2);
         }
         
         .contact-icon {
             background: linear-gradient(145deg, #1e293b, #0f172a);
             box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(30, 41, 59, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .contact-icon:hover::after {
+            opacity: 1;
         }
         
         .social-icon {
             background: linear-gradient(145deg, #1e293b, #0f172a);
             box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2), -3px -3px 8px rgba(30, 41, 59, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #6366f1, #818cf8);
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .social-icon:hover::before {
+            opacity: 1;
         }
         
         .social-icon:hover {
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.1);
             box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(30, 41, 59, 0.15);
+            color: white !important;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
         }
         
         .section-title::after {
@@ -144,7 +262,8 @@
             width: 60px;
             height: 3px;
             margin-top: 8px;
-            background: linear-gradient(90deg, #64748b, #94a3b8);
+            background: linear-gradient(90deg, #6366f1, #818cf8);
+            border-radius: 3px;
         }
         
         .form-input {
@@ -155,32 +274,71 @@
         }
         
         .form-input:focus {
-            border-color: #64748b;
-            box-shadow: 0 0 0 2px rgba(100, 116, 139, 0.2);
+            border-color: #6366f1;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
             outline: none;
         }
         
         .btn-primary {
-            background: linear-gradient(145deg, #64748b, #475569);
+            background: linear-gradient(145deg, #6366f1, #4f46e5);
             box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2), -3px -3px 8px rgba(30, 41, 59, 0.1);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+            z-index: -1;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
         }
         
         .btn-primary:hover {
-            background: linear-gradient(145deg, #475569, #64748b);
+            background: linear-gradient(145deg, #4f46e5, #6366f1);
             box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(30, 41, 59, 0.15);
             transform: translateY(-2px);
         }
         
         .btn-outline {
             background: transparent;
-            border: 1px solid #64748b;
+            border: 1px solid #6366f1;
             box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2), -3px -3px 8px rgba(30, 41, 59, 0.1);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-outline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #4f46e5);
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+        
+        .btn-outline:hover::before {
+            width: 100%;
         }
         
         .btn-outline:hover {
-            background: rgba(100, 116, 139, 0.1);
+            color: white;
+            border-color: transparent;
             box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(30, 41, 59, 0.15);
             transform: translateY(-2px);
         }
@@ -189,7 +347,7 @@
             display: inline-block;
             width: 2px;
             height: 1em;
-            background-color: #94a3b8;
+            background-color: #818cf8;
             margin-left: 2px;
             animation: blink 1s infinite;
         }
@@ -209,38 +367,378 @@
             }
         }
         
-        /* Subtle background pattern */
+        /* Animated background pattern */
         .bg-pattern {
             background-color: #0f172a;
-            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+            background-image: 
+                radial-gradient(#1e293b 1px, transparent 1px),
+                radial-gradient(#1e293b 1px, transparent 1px);
             background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-pattern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(to right, rgba(99, 102, 241, 0.05), transparent),
+                linear-gradient(to bottom, rgba(99, 102, 241, 0.05), transparent);
+            pointer-events: none;
         }
         
         /* Gradient text */
         .gradient-text {
-            background: linear-gradient(90deg, #94a3b8, #cbd5e1);
+            background: linear-gradient(90deg, #6366f1, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             color: transparent;
         }
+        
+        /* Animated particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(99, 102, 241, 0.3);
+            pointer-events: none;
+        }
+        
+        /* Glowing effect */
+        .glow {
+            position: relative;
+        }
+        
+        .glow::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            box-shadow: 0 0 20px 5px rgba(99, 102, 241, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .glow:hover::after {
+            opacity: 1;
+        }
+        
+        /* Glass morphism */
+        .glass {
+            background: rgba(30, 41, 59, 0.2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        
+        /* Skill bar animation */
+        @keyframes skillFill {
+            from { width: 0; }
+            to { width: var(--skill-level); }
+        }
+        
+        .skill-bar {
+            --skill-level: 0%;
+            animation: skillFill 1.5s ease-out forwards;
+        }
+        
+        /* Custom cursor */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(99, 102, 241, 0.3);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: width 0.3s, height 0.3s, background 0.3s;
+            mix-blend-mode: screen;
+        }
+        
+        .custom-cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(99, 102, 241, 0.5);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9998;
+            transition: 0.1s ease-out;
+        }
+        
+        /* 3D card effect */
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+        
+        .card-3d:hover {
+            transform: rotateY(10deg) rotateX(10deg);
+        }
+        
+        .card-3d-content {
+            transform: translateZ(20px);
+            transition: transform 0.5s;
+        }
+        
+        .card-3d:hover .card-3d-content {
+            transform: translateZ(40px);
+        }
+        
+        /* Animated border */
+        .animated-border {
+            position: relative;
+        }
+        
+        .animated-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid transparent;
+            border-radius: inherit;
+            background: linear-gradient(45deg, #6366f1, transparent, #6366f1, transparent) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            animation: borderRotate 4s linear infinite;
+        }
+        
+        @keyframes borderRotate {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 300% 300%;
+            }
+        }
+        
+        /* Floating animation */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Planetary rings */
+        .planetary-ring {
+            position: absolute;
+            border-radius: 50%;
+            border-style: solid;
+            pointer-events: none;
+        }
+        
+        .ring-1 {
+            width: 140%;
+            height: 140%;
+            border-width: 4px;
+            border-color: rgba(99, 102, 241, 0.1);
+            top: -20%;
+            left: -20%;
+            transform: rotateX(75deg);
+        }
+        
+        .ring-2 {
+            width: 160%;
+            height: 160%;
+            border-width: 8px;
+            border-color: rgba(129, 140, 248, 0.15);
+            top: -30%;
+            left: -30%;
+            transform: rotateX(75deg);
+        }
+        
+        .ring-3 {
+            width: 180%;
+            height: 180%;
+            border-width: 2px;
+            border-color: rgba(165, 180, 252, 0.08);
+            top: -40%;
+            left: -40%;
+            transform: rotateX(75deg);
+        }
+        
+        .ring-4 {
+            width: 200%;
+            height: 200%;
+            border-width: 6px;
+            border-color: rgba(99, 102, 241, 0.05);
+            top: -50%;
+            left: -50%;
+            transform: rotateX(75deg);
+        }
+        
+        .ring-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .ring-glow {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3), 
+                        inset 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        /* Particles in rings */
+        .ring-particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Saturn-like ring system */
+        .saturn-rings {
+            position: absolute;
+            width: 200%;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(99, 102, 241, 0.05) 20%, 
+                rgba(129, 140, 248, 0.15) 30%, 
+                rgba(165, 180, 252, 0.2) 40%, 
+                rgba(224, 231, 255, 0.15) 50%,
+                rgba(165, 180, 252, 0.2) 60%,
+                rgba(129, 140, 248, 0.15) 70%,
+                rgba(99, 102, 241, 0.05) 80%,
+                transparent 100%
+            );
+            top: 50%;
+            left: -50%;
+            transform: translateY(-50%) rotateX(75deg);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+        }
+        
+        .jupiter-bands {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(99, 102, 241, 0.1) 0px,
+                    rgba(129, 140, 248, 0.15) 5px,
+                    rgba(165, 180, 252, 0.1) 10px,
+                    rgba(224, 231, 255, 0.05) 15px,
+                    rgba(99, 102, 241, 0.1) 20px
+                );
+        }
+        
+        /* Orbital path */
+        .orbital-path {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px dashed rgba(99, 102, 241, 0.3);
+            pointer-events: none;
+        }
+        
+        /* Orbiting moons */
+        .moon {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #f1f5f9, #94a3b8);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        .moon-orbit {
+            position: absolute;
+            animation: orbit 10s linear infinite;
+            transform-origin: center;
+        }
+        
+        @keyframes orbit {
+            0% { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+        }
+        
+        /* Cosmic dust */
+        .cosmic-dust {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body class="bg-dark text-light">
+    <!-- Custom Cursor -->
+    <div class="custom-cursor hidden md:block"></div>
+    <div class="custom-cursor-follower hidden md:block"></div>
+
     <!-- Navigation -->
-    <header class="fixed w-full bg-dark/90 backdrop-blur-sm shadow-md z-50">
+    <header class="fixed w-full bg-dark/80 backdrop-blur-md shadow-lg z-50 glass">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold">
-                <span class="text-light">MY</span><span class="text-primary">Portfolio</span>
+            <a href="#" class="text-2xl font-bold relative overflow-hidden group">
+                <span class="text-light opacity-0 group-hover:opacity-100 absolute transition-opacity duration-300">MY</span>
+                <span class="text-light group-hover:opacity-0 transition-opacity duration-300">MY</span>
+                <span class="gradient-text">Portfolio</span>
             </a>
             
             <div class="hidden md:flex space-x-8">
-                <a href="#home" class="nav-link active font-medium text-light hover:text-muted transition-colors">Home</a>
-                <a href="#about" class="nav-link font-medium text-light hover:text-muted transition-colors">About</a>
-                <a href="#skills" class="nav-link font-medium text-light hover:text-muted transition-colors">Skills</a>
-                <a href="#experience" class="nav-link font-medium text-light hover:text-muted transition-colors">Experience</a>
-                <a href="#projects" class="nav-link font-medium text-light hover:text-muted transition-colors">Projects</a>
-                <a href="#contact" class="nav-link font-medium text-light hover:text-muted transition-colors">Contact</a>
+                <a href="#home" class="nav-link active font-medium text-light hover:text-primary transition-all duration-300 transform hover:translate-y-[-2px]">Home</a>
+                <a href="#about" class="nav-link font-medium text-light hover:text-primary transition-all duration-300 transform hover:translate-y-[-2px]">About</a>
+                <a href="#skills" class="nav-link font-medium text-light hover:text-primary transition-all duration-300 transform hover:translate-y-[-2px]">Skills</a>
+                <a href="#experience" class="nav-link font-medium text-light hover:text-primary transition-all duration-300 transform hover:translate-y-[-2px]">Experience</a>
+                <a href="#projects" class="nav-link font-medium text-light hover:text-primary transition-all duration-300 transform hover:translate-y-[-2px]">Projects</a>
+                <a href="#contact" class="nav-link font-medium text-light hover:text-primary transition-all duration-300 transform hover:translate-y-[-2px]">Contact</a>
             </div>
             
             <button id="mobile-menu-button" class="md:hidden text-light focus:outline-none">
@@ -248,365 +746,569 @@
             </button>
         </nav>
         
-        <div id="mobile-menu" class="mobile-menu flex-col items-center py-4 bg-dark/95 backdrop-blur-sm shadow-md">
-            <a href="#home" class="py-2 px-4 w-full text-center text-light hover:text-muted transition-colors">Home</a>
-            <a href="#about" class="py-2 px-4 w-full text-center text-light hover:text-muted transition-colors">About</a>
-            <a href="#skills" class="py-2 px-4 w-full text-center text-light hover:text-muted transition-colors">Skills</a>
-            <a href="#experience" class="py-2 px-4 w-full text-center text-light hover:text-muted transition-colors">Experience</a>
-            <a href="#projects" class="py-2 px-4 w-full text-center text-light hover:text-muted transition-colors">Projects</a>
-            <a href="#contact" class="py-2 px-4 w-full text-center text-light hover:text-muted transition-colors">Contact</a>
+        <div id="mobile-menu" class="mobile-menu flex-col items-center py-4 bg-dark/95 backdrop-blur-md shadow-md">
+            <a href="#home" class="py-2 px-4 w-full text-center text-light hover:text-primary transition-colors">Home</a>
+            <a href="#about" class="py-2 px-4 w-full text-center text-light hover:text-primary transition-colors">About</a>
+            <a href="#skills" class="py-2 px-4 w-full text-center text-light hover:text-primary transition-colors">Skills</a>
+            <a href="#experience" class="py-2 px-4 w-full text-center text-light hover:text-primary transition-colors">Experience</a>
+            <a href="#projects" class="py-2 px-4 w-full text-center text-light hover:text-primary transition-colors">Projects</a>
+            <a href="#contact" class="py-2 px-4 w-full text-center text-light hover:text-primary transition-colors">Contact</a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center bg-pattern pt-16">
-        <div class="container mx-auto px-6 py-16 md:py-24 flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 text-center md:text-left mb-12 md:mb-0 animate-fade-in">
-                <p class="text-primary font-medium mb-2">Welcome to my portfolio</p>
+    <section id="home" class="min-h-screen flex items-center justify-center bg-pattern pt-16 relative overflow-hidden">
+        <!-- Particles -->
+        <div class="particles" id="particles"></div>
+        
+        <!-- Cosmic dust -->
+        <div id="cosmic-dust-container"></div>
+        
+        <div class="container mx-auto px-6 py-16 md:py-24 flex flex-col md:flex-row items-center relative z-10">
+            <div class="md:w-1/2 text-center md:text-left mb-12 md:mb-0" data-aos="fade-right" data-aos-duration="1000">
+                <div class="inline-block px-4 py-1 rounded-full bg-primary/10 border border-primary/20 mb-4">
+                    <p class="text-primary font-medium">Welcome to my portfolio</p>
+                </div>
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
                     Hi, I'm <span class="gradient-text">Muhammad Syafwan Nabil</span>
                 </h1>
-                <h2 class="text-2xl md:text-3xl font-medium text-accent mb-6">
+                <h2 class="text-2xl md:text-3xl font-medium text-accent mb-6 h-[40px]">
                     <span id="typed-text" class="text-muted"></span>
                     <span class="cursor">|</span>
                 </h2>
                 <p class="text-lg text-muted mb-8 max-w-lg mx-auto md:mx-0">
-                    A passionate professional dedicated to creating impactful solutions and delivering exceptional results.
+                    A passionate developer dedicated to creating impactful solutions and delivering exceptional results through innovative technology.
                 </p>
                 <div class="flex flex-wrap justify-center md:justify-start gap-4">
-                    <a href="#contact" class="px-6 py-3 btn-primary text-light font-medium rounded-full">
+                    <a href="#contact" class="px-6 py-3 btn-primary text-light font-medium rounded-full glow group">
                         Contact Me
+                        <i class="fas fa-paper-plane ml-2 transform group-hover:translate-x-1 transition-transform"></i>
                     </a>
-                    <a href="#projects" class="px-6 py-3 btn-outline text-primary font-medium rounded-full">
+                    <a href="#projects" class="px-6 py-3 btn-outline text-primary font-medium rounded-full glow group">
                         View Projects
+                        <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+                
+                <div class="mt-12 flex justify-center md:justify-start space-x-4">
+                    <a href="https://www.linkedin.com/in/muhammad-syafwan-nabil-94a357317/" class="w-10 h-10 social-icon rounded-full flex items-center justify-center text-primary hover:text-light transition-colors">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/muhsyafwannabil" class="w-10 h-10 social-icon rounded-full flex items-center justify-center text-primary hover:text-light transition-colors">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://x.com/syafwannabil12" class="w-10 h-10 social-icon rounded-full flex items-center justify-center text-primary hover:text-light transition-colors">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/shonabil/" class="w-10 h-10 social-icon rounded-full flex items-center justify-center text-primary hover:text-light transition-colors">
+                        <i class="fab fa-instagram"></i>
                     </a>
                 </div>
             </div>
-            <div class="md:w-1/2 flex justify-center">
-                <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full bg-secondary/20 flex items-center justify-center animate-bounce-slow">
-                    <img src="123.jpg" alt="Your Name" class="w-56 h-56 md:w-72 md:h-72 rounded-full object-cover border-4 border-secondary shadow-lg">
-                    <div class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-light font-bold text-lg shadow-lg">
-                        Hire Me!
+            <div class="md:w-1/2 flex justify-center" data-aos="fade-left" data-aos-duration="1000">
+                <div class="relative">
+                    <!-- Planetary Ring System -->
+                    <div class="ring-container animate-spin-slow">
+                        <div class="planetary-ring ring-1"></div>
+                    </div>
+                    <div class="ring-container animate-spin-reverse">
+                        <div class="planetary-ring ring-2 ring-glow"></div>
+                    </div>
+                    <div class="ring-container animate-spin-medium">
+                        <div class="planetary-ring ring-3"></div>
+                    </div>
+                    <div class="ring-container animate-spin-reverse" style="animation-duration: 25s;">
+                        <div class="planetary-ring ring-4"></div>
+                    </div>
+                    
+                    <!-- Saturn-like ring -->
+                    <div class="ring-container">
+                        <div class="saturn-rings animate-spin-slow"></div>
+                    </div>
+                    
+                    <!-- Orbital paths and moons -->
+                    <div class="orbital-path" style="width: 300px; height: 300px; top: -110px; left: -110px;"></div>
+                    <div class="moon-orbit" style="width: 20px; height: 20px; top: 40px; left: 40px;">
+                        <div class="moon"></div>
+                    </div>
+                    
+                    <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center floating">
+                        <!-- Jupiter-like bands -->
+                        <div class="jupiter-bands absolute inset-0 opacity-30"></div>
+                        
+                        <img src="123.jpg" alt="Muhammad Syafwan Nabil" class="w-56 h-56 md:w-72 md:h-72 rounded-full object-cover border-4 border-primary/30 shadow-lg shadow-primary/20 relative z-10">
+                        <div class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-light font-bold text-lg shadow-lg transform hover:scale-110 transition-transform duration-300 cursor-pointer z-20">
+                            Hire Me!
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <a href="#about" class="text-primary">
+            <a href="#about" class="text-primary hover:text-accent transition-colors duration-300">
                 <i class="fas fa-chevron-down text-3xl"></i>
             </a>
+        </div>
+        
+        <!-- Tech stack floating icons -->
+        <div class="absolute bottom-20 left-10 w-12 h-12 bg-card/50 rounded-full flex items-center justify-center floating" style="animation-delay: 0.5s">
+            <i class="fab fa-html5 text-orange-400 text-xl"></i>
+        </div>
+        <div class="absolute top-40 right-20 w-10 h-10 bg-card/50 rounded-full flex items-center justify-center floating" style="animation-delay: 1s">
+            <i class="fab fa-css3-alt text-blue-400 text-lg"></i>
+        </div>
+        <div class="absolute bottom-40 right-10 w-14 h-14 bg-card/50 rounded-full flex items-center justify-center floating" style="animation-delay: 1.5s">
+            <i class="fab fa-js text-yellow-300 text-2xl"></i>
+        </div>
+        
+        <div class="absolute top-60 left-20 w-12 h-12 bg-card/50 rounded-full flex items-center justify-center floating" style="animation-delay: 2s">
+            <i class="fab fa-laravel text-red-400 text-xl"></i>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-darker">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
+    <section id="about" class="py-20 bg-darker relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-dark to-transparent"></div>
+        <div class="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-dark to-transparent"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="800">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title inline-block mx-auto">About Me</h2>
             </div>
             
             <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="md:w-1/2">
-                    <img src="123.jpg" alt="About Me" class="rounded-lg shadow-xl w-full h-auto transform hover:scale-[1.02] transition-transform duration-500">
-                </div>
-                <div class="md:w-1/2">
-                    <h3 class="text-2xl font-bold mb-4 gradient-text inline-block">Who am I?</h3>
-                    <p class="text-muted mb-6">
-                        I am a student at Politeknik IDN with a strong passion for technology, especially in web and mobile application development. I enjoy creating clean, functional, and user-friendly apps while constantly learning new tools and frameworks. For me, technology is not just about code — it's a powerful medium to bring value, share knowledge, and inspire others. I believe in using my skills for good, combining both technical excellence and meaningful purpose.
-                    </p>
-                  
-                    <div class="grid grid-cols-2 gap-4 mb-8">
-                        <div>
-                            <p class="font-medium text-light">Name:</p>
-                            <p class="text-muted">Muhammad Syafwan Nabil</p>
+                <div class="md:w-1/2" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="relative card-3d rounded-xl overflow-hidden">
+                        <!-- Small planetary ring for the about image -->
+                        <div class="ring-container animate-spin-slow" style="opacity: 0.6;">
+                            <div class="planetary-ring ring-1" style="width: 120%; height: 120%; top: -10%; left: -10%;"></div>
                         </div>
-                        <div>
-                            <p class="font-medium text-light">Email:</p>
-                            <p class="text-muted">shonabil27@gmail.com</p>
-                        </div>
-                        <div>
-                            <p class="font-medium text-light">Location:</p>
-                            <p class="text-muted">Bontang, Indonesia</p>
-                        </div>
-                        <div>
-                            <p class="font-medium text-light">Availability:</p>
-                            <p class="text-primary font-medium">Available for hire</p>
+                        
+                        <img src="123.jpg" alt="About Me" class="rounded-xl shadow-xl w-full h-auto card-3d-content">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent opacity-60 rounded-xl"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-darker to-transparent">
+                            <p class="text-light font-medium">Muhammad Syafwan Nabil</p>
+                            <p class="text-primary text-sm">Web & Mobile Developer</p>
                         </div>
                     </div>
-                    
-                    <a href="#" class="px-6 py-3 btn-primary text-light font-medium rounded-full inline-block">
-                        Download CV <i class="fas fa-download ml-2"></i>
-                    </a>
+                </div>
+                <div class="md:w-1/2" data-aos="fade-left" data-aos-duration="1000">
+                    <div class="p-1 rounded-xl animated-border">
+                        <div class="bg-card/50 p-6 rounded-xl backdrop-blur-sm">
+                            <h3 class="text-2xl font-bold mb-4 gradient-text inline-block">Who am I?</h3>
+                            <p class="text-muted mb-6 leading-relaxed">
+                                I am a student at <span class="text-primary font-medium">Politeknik IDN</span> with a strong passion for technology, especially in web and mobile application development. I enjoy creating clean, functional, and user-friendly apps while constantly learning new tools and frameworks.
+                            </p>
+                            <p class="text-muted mb-6 leading-relaxed">
+                                For me, technology is not just about code — it's a powerful medium to bring value, share knowledge, and inspire others. I believe in using my skills for good, combining both technical excellence and meaningful purpose.
+                            </p>
+                          
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+                                <div class="bg-dark/50 p-4 rounded-lg backdrop-blur-sm">
+                                    <p class="font-medium text-primary mb-1">Name:</p>
+                                    <p class="text-light">Muhammad Syafwan Nabil</p>
+                                </div>
+                                <div class="bg-dark/50 p-4 rounded-lg backdrop-blur-sm">
+                                    <p class="font-medium text-primary mb-1">Email:</p>
+                                    <p class="text-light">shonabil27@gmail.com</p>
+                                </div>
+                                <div class="bg-dark/50 p-4 rounded-lg backdrop-blur-sm">
+                                    <p class="font-medium text-primary mb-1">Location:</p>
+                                    <p class="text-light">Bontang, Indonesia</p>
+                                </div>
+                                <div class="bg-dark/50 p-4 rounded-lg backdrop-blur-sm">
+                                    <p class="font-medium text-primary mb-1">Availability:</p>
+                                    <p class="text-primary font-medium">Available for hire</p>
+                                </div>
+                            </div>
+                            
+                            <a href="#" class="px-6 py-3 btn-primary text-light font-medium rounded-full inline-block group">
+                                Download CV <i class="fas fa-download ml-2 group-hover:animate-bounce"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-20 bg-dark">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
+    <section id="skills" class="py-20 bg-dark relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-80 h-80 bg-primary/5 rounded-full filter blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 bg-primary/5 rounded-full filter blur-3xl"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="800">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title inline-block mx-auto">My Skills</h2>
                 <p class="text-muted mt-4 max-w-2xl mx-auto">
-                    Here are some of the skills I've acquired throughout my professional journey.
+                    Here are some of the technologies and tools I've mastered throughout my journey.
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
-               
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto mb-16">
+                <div class="bg-card/50 p-6 rounded-xl backdrop-blur-sm" data-aos="fade-right" data-aos-duration="800">
+                    <h3 class="text-xl font-bold mb-6 text-light">Frontend Development</h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-light">HTML/CSS</span>
+                                <span class="text-primary">90%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="skill-bar" style="--skill-level: 90%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-light">JavaScript</span>
+                                <span class="text-primary">85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="skill-bar" style="--skill-level: 85%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-light">Tailwind CSS</span>
+                                <span class="text-primary">80%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="skill-bar" style="--skill-level: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
-               
+                <div class="bg-card/50 p-6 rounded-xl backdrop-blur-sm" data-aos="fade-left" data-aos-duration="800">
+                    <h3 class="text-xl font-bold mb-6 text-light">Backend Development</h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-light">PHP</span>
+                                <span class="text-primary">85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="skill-bar" style="--skill-level: 85%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-light">Laravel</span>
+                                <span class="text-primary">80%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="skill-bar" style="--skill-level: 80%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-light">Dart/Flutter</span>
+                                <span class="text-primary">75%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="skill-bar" style="--skill-level: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <div class="mt-16 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 text-center">
-                <div class="p-4 skill-icon rounded-lg">
-                    <i class="fab fa-html5 text-4xl text-orange-400 mb-2"></i>
+                <div class="p-6 skill-icon rounded-lg" data-aos="zoom-in" data-aos-duration="500">
+                    <i class="fab fa-html5 text-4xl text-orange-400 mb-3"></i>
                     <p class="font-medium text-light">HTML5</p>
                 </div>
                 
-                <div class="p-4 skill-icon rounded-lg">
-                    <i class="fab fa-css3-alt text-4xl text-blue-400 mb-2"></i>
+                <div class="p-6 skill-icon rounded-lg" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="100">
+                    <i class="fab fa-css3-alt text-4xl text-blue-400 mb-3"></i>
                     <p class="font-medium text-light">CSS3</p>
                 </div>
                 
-                <div class="p-4 skill-icon rounded-lg">
-                    <i class="fab fa-js text-4xl text-yellow-300 mb-2"></i>
+                <div class="p-6 skill-icon rounded-lg" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">
+                    <i class="fab fa-js text-4xl text-yellow-300 mb-3"></i>
                     <p class="font-medium text-light">JavaScript</p>
                 </div>
                 
-                <div class="p-4 skill-icon rounded-lg">
-                    <i class="fab fa-php text text-4xl text-purple-300 mb-2"></i>
+                <div class="p-6 skill-icon rounded-lg" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="300">
+                    <i class="fab fa-php text-4xl text-purple-400 mb-3"></i>
                     <p class="font-medium text-light">PHP</p>
                 </div>
                 
-                <div class="p-4 skill-icon rounded-lg">
-                    <i class="fab fa-laravel text-4xl text-red-400 mb-2"></i>
+                <div class="p-6 skill-icon rounded-lg" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="400">
+                    <i class="fab fa-laravel text-4xl text-red-400 mb-3"></i>
                     <p class="font-medium text-light">Laravel</p>
                 </div>
                 
-                <div class="p-4 skill-icon rounded-lg">
-                    <i class="fa-b fa-flutter text-4xl text-blue-400 mb-2"></i>
+                <div class="p-6 skill-icon rounded-lg" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="500">
+                    <i class="fab fa-flutter text-4xl text-blue-400 mb-3"></i>
                     <p class="font-medium text-light">Dart/Flutter</p>
                 </div>
-              
             </div>
         </div>
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="py-20 bg-darker">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
+    <section id="experience" class="py-20 bg-darker relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-dark to-transparent"></div>
+        <div class="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-dark to-transparent"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="800">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title inline-block mx-auto">Work Experience</h2>
                 <p class="text-muted mt-4 max-w-2xl mx-auto">
-                    My professional journey and the companies I've had the pleasure to work with.
+                    My professional journey and educational background.
                 </p>
             </div>
             
             <div class="max-w-4xl mx-auto">
-                <div class="relative pl-8 sm:pl-32 py-6 group">
+                <div class="relative pl-8 sm:pl-32 py-6 group" data-aos="fade-up" data-aos-duration="800">
                     <div class="flex flex-col sm:flex-row items-start mb-1 group-hover:text-primary transition-colors duration-300">
-                        <span class="absolute left-0 sm:left-24 top-7 flex items-center justify-center w-8 h-8 timeline-dot rounded-full text-light font-bold group-hover:scale-110 transition duration-300">
-                            <i class="fas fa-briefcase"></i>
+                        <span class="absolute left-0 sm:left-24 top-7 flex items-center justify-center w-10 h-10 timeline-dot rounded-full text-light font-bold group-hover:scale-110 transition duration-300">
+                            <i class="fas fa-graduation-cap"></i>
                         </span>
                         <div class="w-full sm:w-24 text-xs sm:text-right mr-8 text-muted mt-1 sm:mt-0">
                             2024 - Present
                         </div>
-                        <h3 class="text-xl font-bold text-light">student</h3>
+                        <h3 class="text-xl font-bold text-light">Student</h3>
                     </div>
-                    <h4 class="text-primary font-medium mb-2">Company Name</h4>
+                    <h4 class="text-primary font-medium mb-2">Politeknik IDN</h4>
                     <p class="text-muted">
-                        Polythecnic IDN
+                        Currently pursuing my education in software engineering, focusing on web and mobile application development. Actively participating in various tech projects and competitions to enhance my skills.
                     </p>
-                    <span class="absolute top-7 left-4 h-full w-0.5 bg-secondary block"></span>
+                    <span class="absolute top-7 left-4 h-full w-0.5 bg-gradient-to-b from-primary/80 via-primary/20 to-transparent block"></span>
                 </div>
                 
-                <!-- <div class="relative pl-8 sm:pl-32 py-6 group">
+                <div class="relative pl-8 sm:pl-32 py-6 group" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
                     <div class="flex flex-col sm:flex-row items-start mb-1 group-hover:text-primary transition-colors duration-300">
-                        <span class="absolute left-0 sm:left-24 top-7 flex items-center justify-center w-8 h-8 timeline-dot rounded-full text-light font-bold group-hover:scale-110 transition duration-300">
-                            <i class="fas fa-briefcase"></i>
+                        <span class="absolute left-0 sm:left-24 top-7 flex items-center justify-center w-10 h-10 timeline-dot rounded-full text-light font-bold group-hover:scale-110 transition duration-300">
+                            <i class="fas fa-code"></i>
                         </span>
                         <div class="w-full sm:w-24 text-xs sm:text-right mr-8 text-muted mt-1 sm:mt-0">
-                            2018 - 2021
+                            2023 - 2024
                         </div>
-                        <h3 class="text-xl font-bold text-light">Web Developer</h3>
+                        <h3 class="text-xl font-bold text-light">Freelance Developer</h3>
                     </div>
-                    <h4 class="text-primary font-medium mb-2">Previous Company</h4>
+                    <h4 class="text-primary font-medium mb-2">Self-employed</h4>
                     <p class="text-muted">
-                        Developed and maintained [Type of Applications] using [Technologies]. Implemented [Feature/System] that improved [Metric] by [Percentage]. Collaborated with designers to create responsive and user-friendly interfaces.
+                        Worked on various web and mobile application projects for clients, implementing responsive designs and functional features using modern technologies like Laravel, Flutter, and JavaScript.
                     </p>
-                    <span class="absolute top-7 left-4 h-full w-0.5 bg-secondary block"></span>
                 </div>
-                
-                <div class="relative pl-8 sm:pl-32 py-6 group">
-                    <div class="flex flex-col sm:flex-row items-start mb-1 group-hover:text-primary transition-colors duration-300">
-                        <span class="absolute left-0 sm:left-24 top-7 flex items-center justify-center w-8 h-8 timeline-dot rounded-full text-light font-bold group-hover:scale-110 transition duration-300">
-                            <i class="fas fa-briefcase"></i>
-                        </span>
-                        <div class="w-full sm:w-24 text-xs sm:text-right mr-8 text-muted mt-1 sm:mt-0">
-                            2016 - 2018
-                        </div>
-                        <h3 class="text-xl font-bold text-light">Junior Developer</h3>
-                    </div>
-                    <h4 class="text-primary font-medium mb-2">First Company</h4>
-                    <p class="text-muted">
-                        Assisted in the development of [Project] using [Technologies]. Participated in code reviews and implemented feedback to improve code quality. Collaborated with the QA team to identify and fix bugs.
-                    </p>
-                </div> -->
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-20 bg-dark">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
+    <section id="projects" class="py-20 bg-dark relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-80 h-80 bg-primary/5 rounded-full filter blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 bg-primary/5 rounded-full filter blur-3xl"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="800">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title inline-block mx-auto">My Projects</h2>
                 <p class="text-muted mt-4 max-w-2xl mx-auto">
-                    Here are some of the projects I've worked on throughout my career.
+                    Here are some of the projects I've worked on throughout my journey.
                 </p>
             </div>
             
+            <div class="flex justify-center mb-10">
+                <div class="inline-flex p-1 bg-card/50 rounded-full backdrop-blur-sm">
+                    <button class="px-4 py-2 rounded-full bg-primary text-white">All Projects</button>
+                    <button class="px-4 py-2 rounded-full text-light hover:text-primary transition-colors">Web</button>
+                    <button class="px-4 py-2 rounded-full text-light hover:text-primary transition-colors">Mobile</button>
+                    <button class="px-4 py-2 rounded-full text-light hover:text-primary transition-colors">UI/UX</button>
+                </div>
+            </div>
+            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="project-card rounded-xl overflow-hidden">
-                    <div class="relative overflow-hidden">
-                        <img src="https://via.placeholder.com/600x400" alt="Project 1" class="w-full h-48 object-cover transition-transform duration-700 hover:scale-110">
+                <div class="project-card rounded-xl overflow-hidden" data-aos="fade-up" data-aos-duration="800">
+                    <div class="relative overflow-hidden group">
+                        <img src="https://via.placeholder.com/600x400" alt="Project 1" class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110">
                         <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-60"></div>
+                        <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <div class="transform translate-y-10 group-hover:translate-y-0 transition-transform duration-300">
+                                <a href="#" class="mx-2 inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white hover:bg-white/20 transition-colors">
+                                    <i class="fas fa-eye mr-1"></i> Preview
+                                </a>
+                                <a href="#" class="mx-2 inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white hover:bg-white/20 transition-colors">
+                                    <i class="fas fa-code mr-1"></i> Code
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-light">Booking ticket system</h3>
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-xl font-bold text-light">Booking Ticket System</h3>
+                            <span class="px-2 py-1 bg-primary/20 text-primary rounded-full text-xs">Web</span>
+                        </div>
                         <p class="text-muted mb-4">
-                            A brief description of the project, its purpose, and the technologies used to build it.
+                            A comprehensive ticket booking system with user authentication, seat selection, and payment integration.
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">HTML</span>
-                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">TailwindCSS</span>
-                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">Laravel</span>
-                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">JavaScript</span>
+                            <span class="px-3 py-1 bg-card/70 text-primary rounded-full text-xs">HTML</span>
+                            <span class="px-3 py-1 bg-card/70 text-primary rounded-full text-xs">TailwindCSS</span>
+                            <span class="px-3 py-1 bg-card/70 text-primary rounded-full text-xs">Laravel</span>
+                            <span class="px-3 py-1 bg-card/70 text-primary rounded-full text-xs">JavaScript</span>
                         </div>
                         <div class="flex space-x-4">
-                            <a href="#" class="text-primary hover:text-accent transition duration-300">
-                                <i class="fas fa-external-link-alt mr-1"></i> Live Demo
+                            <a href="#" class="text-primary hover:text-accent transition duration-300 group">
+                                <i class="fas fa-external-link-alt mr-1 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i> Live Demo
                             </a>
-                            <a href="https://github.com/muhsyafwannabil" class="text-primary hover:text-accent transition duration-300">
-                                <i class="fab fa-github mr-1"></i> GitHub
+                            <a href="https://github.com/muhsyafwannabil" class="text-primary hover:text-accent transition duration-300 group">
+                                <i class="fab fa-github mr-1 group-hover:rotate-12 transition-transform"></i> GitHub
                             </a>
                         </div>
                     </div>
                 </div>
                 
-                <div class="project-card rounded-xl overflow-hidden">
-                    <div class="relative overflow-hidden">
-                        <img src="https://via.placeholder.com/600x400" alt="Project 2" class="w-full h-48 object-cover transition-transform duration-700 hover:scale-110">
+                <div class="project-card rounded-xl overflow-hidden" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                    <div class="relative overflow-hidden group">
+                        <img src="https://via.placeholder.com/600x400" alt="Project 2" class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110">
                         <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-60"></div>
+                        <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <div class="transform translate-y-10 group-hover:translate-y-0 transition-transform duration-300">
+                                <a href="#" class="mx-2 inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white hover:bg-white/20 transition-colors">
+                                    <i class="fas fa-eye mr-1"></i> Preview
+                                </a>
+                                <a href="#" class="mx-2 inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white hover:bg-white/20 transition-colors">
+                                    <i class="fas fa-code mr-1"></i> Code
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-light">Muslim Apps</h3>
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-xl font-bold text-light">Muslim Apps</h3>
+                            <span class="px-2 py-1 bg-primary/20 text-primary rounded-full text-xs">Web</span>
+                        </div>
                         <p class="text-muted mb-4">
-                            A brief description of the project, its purpose, and the technologies used to build it.
+                            An Islamic application featuring prayer times, Quran reading, and daily Islamic reminders for Muslims.
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">Laravel</span>
-                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">TailwindCSS</span>
-                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">JavaScript</span>
+                            <span class="px-3 py-1 bg-card/70 text-primary rounded-full text-xs">Laravel</span>
+                            <span class="px-3 py-1 bg-card/70 text-primary rounded-full text-xs">TailwindCSS</span>
+                            <span class="px-3 py-1 bg-card/70 text-primary rounded-full text-xs">JavaScript</span>
                         </div>
                         <div class="flex space-x-4">
-                            <a href="#" class="text-primary hover:text-accent transition duration-300">
-                                <i class="fas fa-external-link-alt mr-1"></i> Live Demo
+                            <a href="#" class="text-primary hover:text-accent transition duration-300 group">
+                                <i class="fas fa-external-link-alt mr-1 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i> Live Demo
                             </a>
-                            <a href="https://github.com/muhsyafwannabil" class="text-primary hover:text-accent transition duration-300">
-                                <i class="fab fa-github mr-1"></i> GitHub
+                            <a href="https://github.com/muhsyafwannabil" class="text-primary hover:text-accent transition duration-300 group">
+                                <i class="fab fa-github mr-1 group-hover:rotate-12 transition-transform"></i> GitHub
                             </a>
                         </div>
                     </div>
                 </div>
                 
-                <div class="project-card rounded-xl overflow-hidden">
-                    <div class="relative overflow-hidden">
-                        <img src="https://via.placeholder.com/600x400" alt="Project 3" class="w-full h-48 object-cover transition-transform duration-700 hover:scale-110">
+                <div class="project-card rounded-xl overflow-hidden" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                    <div class="relative overflow-hidden group">
+                        <img src="https://via.placeholder.com/600x400" alt="Project 3" class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110">
                         <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-60"></div>
+                        <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <div class="transform translate-y-10 group-hover:translate-y-0 transition-transform duration-300">
+                                <a href="#" class="mx-2 inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white hover:bg-white/20 transition-colors">
+                                    <i class="fas fa-eye mr-1"></i> Preview
+                                </a>
+                                <a href="#" class="mx-2 inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white hover:bg-white/20 transition-colors">
+                                    <i class="fas fa-code mr-1"></i> Code
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-light">My Portfolio</h3>
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-xl font-bold text-light">My Portfolio</h3>
+                            <span class="px-2 py-1 bg-primary/20 text-primary rounded-full text-xs">Web</span>
+                        </div>
                         <p class="text-muted mb-4">
-                            A brief description of the project, its purpose, and the technologies used to build it.
+                            A personal portfolio website showcasing my skills, projects, and professional experience with a modern design.
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">HTML</span>
-                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">CSS</span>
-                            <span class="px-3 py-1 bg-secondary/50 text-primary rounded-full text-xs">JavaScript</span>
+                            <span class="px-3 py-1 bg-card/70 text-primary rounded-full text-xs">HTML</span>
+                            <span class="px-3 py-1 bg-card/70 text-primary rounded-full text-xs">CSS</span>
+                            <span class="px-3 py-1 bg-card/70 text-primary rounded-full text-xs">JavaScript</span>
                         </div>
                         <div class="flex space-x-4">
-                            <a href="#" class="text-primary hover:text-accent transition duration-300">
-                                <i class="fas fa-external-link-alt mr-1"></i> Live Demo
+                            <a href="#" class="text-primary hover:text-accent transition duration-300 group">
+                                <i class="fas fa-external-link-alt mr-1 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i> Live Demo
                             </a>
-                            <a href="https://github.com/muhsyafwannabil" class="text-primary hover:text-accent transition duration-300">
-                                <i class="fab fa-github mr-1"></i> GitHub
+                            <a href="https://github.com/muhsyafwannabil" class="text-primary hover:text-accent transition duration-300 group">
+                                <i class="fab fa-github mr-1 group-hover:rotate-12 transition-transform"></i> GitHub
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="text-center mt-12">
-                <a href="#" class="px-6 py-3 btn-primary text-light font-medium rounded-full inline-block">
-                    View All Projects <i class="fas fa-arrow-right ml-2"></i>
+            <div class="text-center mt-12" data-aos="fade-up" data-aos-duration="800">
+                <a href="#" class="px-6 py-3 btn-primary text-light font-medium rounded-full inline-block group">
+                    View All Projects <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
                 </a>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-darker">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
+    <section id="contact" class="py-20 bg-darker relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-dark to-transparent"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="800">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title inline-block mx-auto">Get In Touch</h2>
                 <p class="text-muted mt-4 max-w-2xl mx-auto">
-                    Feel free to reach out if you have any questions or would like to work together.
+                    Feel free to reach out if you have any questions or would like to work together on a project.
                 </p>
             </div>
             
             <div class="flex flex-col md:flex-row gap-10">
-                <div class="md:w-1/2">
-                    <form class="space-y-6">
-                        <div>
-                            <label for="name" class="block text-light mb-2">Your Name</label>
-                            <input type="text" id="name" class="w-full px-4 py-3 rounded-lg form-input">
+                <div class="md:w-1/2" data-aos="fade-right" data-aos-duration="1000">
+                    <form class="space-y-6 p-1 rounded-xl animated-border">
+                        <div class="bg-card/50 p-8 rounded-xl backdrop-blur-sm">
+                            <div class="mb-6">
+                                <label for="name" class="block text-light mb-2">Your Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 rounded-lg form-input focus:ring-2 focus:ring-primary/50">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="email" class="block text-light mb-2">Your Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 rounded-lg form-input focus:ring-2 focus:ring-primary/50">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="subject" class="block text-light mb-2">Subject</label>
+                                <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg form-input focus:ring-2 focus:ring-primary/50">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="message" class="block text-light mb-2">Your Message</label>
+                                <textarea id="message" rows="5" class="w-full px-4 py-3 rounded-lg form-input focus:ring-2 focus:ring-primary/50"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full px-6 py-3 btn-primary text-light font-medium rounded-lg group">
+                                Send Message <i class="fas fa-paper-plane ml-2 group-hover:translate-x-1 transition-transform"></i>
+                            </button>
                         </div>
-                        
-                        <div>
-                            <label for="email" class="block text-light mb-2">Your Email</label>
-                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg form-input">
-                        </div>
-                        
-                        <div>
-                            <label for="subject" class="block text-light mb-2">Subject</label>
-                            <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg form-input">
-                        </div>
-                        
-                        <div>
-                            <label for="message" class="block text-light mb-2">Your Message</label>
-                            <textarea id="message" rows="5" class="w-full px-4 py-3 rounded-lg form-input"></textarea>
-                        </div>
-                        
-                        <button type="submit" class="w-full px-6 py-3 btn-primary text-light font-medium rounded-lg">
-                            Send Message <i class="fas fa-paper-plane ml-2"></i>
-                        </button>
                     </form>
                 </div>
                 
-                <div class="md:w-1/2">
-                    <div class="bg-dark p-8 rounded-xl shadow-lg h-full">
+                <div class="md:w-1/2" data-aos="fade-left" data-aos-duration="1000">
+                    <div class="bg-card/50 p-8 rounded-xl shadow-lg h-full backdrop-blur-sm">
                         <h3 class="text-2xl font-bold mb-6 text-light">Contact Information</h3>
                         
-                        <div class="space-y-6">
+                        <div class="space-y-8">
                             <div class="flex items-start">
                                 <div class="flex-shrink-0 w-12 h-12 contact-icon rounded-full flex items-center justify-center text-primary">
                                     <i class="fas fa-map-marker-alt text-xl"></i>
                                 </div>
                                 <div class="ml-4">
                                     <h4 class="text-lg font-medium text-light">Location</h4>
-                                    <p class="text-muted">Bontang, indonesia</p>
+                                    <p class="text-muted">Bontang, Indonesia</p>
                                 </div>
                             </div>
                             
@@ -631,22 +1333,32 @@
                             </div>
                         </div>
                         
-                        <div class="mt-8">
+                        <div class="mt-10">
                             <h4 class="text-lg font-medium mb-4 text-light">Follow Me</h4>
                             <div class="flex space-x-4">
-                                <a href="https://www.linkedin.com/in/muhammad-syafwan-nabil-94a357317/" class="w-10 h-10 social-icon rounded-full flex items-center justify-center text-primary hover:text-light transition-colors">
-                                    <i class="fab fa-linkedin-in"></i>
+                                <a href="https://www.linkedin.com/in/muhammad-syafwan-nabil-94a357317/" class="w-12 h-12 social-icon rounded-full flex items-center justify-center text-primary hover:text-light transition-colors">
+                                    <i class="fab fa-linkedin-in text-lg"></i>
                                 </a>
-                                <a href="https://github.com/muhsyafwannabil" class="w-10 h-10 social-icon rounded-full flex items-center justify-center text-primary hover:text-light transition-colors">
-                                    <i class="fab fa-github"></i>
+                                <a href="https://github.com/muhsyafwannabil" class="w-12 h-12 social-icon rounded-full flex items-center justify-center text-primary hover:text-light transition-colors">
+                                    <i class="fab fa-github text-lg"></i>
                                 </a>
-                                <a href="https://x.com/syafwannabil12" class="w-10 h-10 social-icon rounded-full flex items-center justify-center text-primary hover:text-light transition-colors">
-                                    <i class="fab fa-twitter"></i>
+                                <a href="https://x.com/syafwannabil12" class="w-12 h-12 social-icon rounded-full flex items-center justify-center text-primary hover:text-light transition-colors">
+                                    <i class="fab fa-twitter text-lg"></i>
                                 </a>
-                                <a href="https://www.instagram.com/shonabil/" class="w-10 h-10 social-icon rounded-full flex items-center justify-center text-primary hover:text-light transition-colors">
-                                    <i class="fab fa-instagram"></i>
+                                <a href="https://www.instagram.com/shonabil/" class="w-12 h-12 social-icon rounded-full flex items-center justify-center text-primary hover:text-light transition-colors">
+                                    <i class="fab fa-instagram text-lg"></i>
                                 </a>
                             </div>
+                        </div>
+                        
+                        <div class="mt-10 p-6 bg-dark/50 rounded-lg backdrop-blur-sm">
+                            <h4 class="text-lg font-medium mb-4 text-light">Let's Work Together</h4>
+                            <p class="text-muted mb-4">
+                                I'm currently available for freelance work. If you have a project that needs some creative touch, I'd love to help you with it.
+                            </p>
+                            <a href="mailto:shonabil27@gmail.com" class="inline-flex items-center text-primary hover:text-accent transition-colors">
+                                <i class="fas fa-paper-plane mr-2"></i> Send me an email
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -655,15 +1367,17 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-darker text-light py-12 border-t border-secondary/20">
-        <div class="container mx-auto px-6">
+    <footer class="bg-darker text-light py-12 border-t border-primary/10 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-dark to-transparent"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-6 md:mb-0">
-                    <a href="#" class="text-2xl font-bold text-light">MY<span class="text-primary">Portfolio</span></a>
+                    <a href="#" class="text-2xl font-bold text-light">MY<span class="gradient-text">Portfolio</span></a>
                     <p class="text-muted mt-2">Web Developer & Mobile Apps Developer</p>
                 </div>
                 
-                <div class="flex flex-wrap justify-center gap-4">
+                <div class="flex flex-wrap justify-center gap-6">
                     <a href="#home" class="text-muted hover:text-primary transition duration-300">Home</a>
                     <a href="#about" class="text-muted hover:text-primary transition duration-300">About</a>
                     <a href="#skills" class="text-muted hover:text-primary transition duration-300">Skills</a>
@@ -673,21 +1387,34 @@
                 </div>
             </div>
             
-            <hr class="border-secondary/20 my-8">
+            <hr class="border-primary/10 my-8">
             
-            <div class="text-center text-muted">
-                <p>&copy; 2024 syafwan nabil. All rights reserved.</p>
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-center text-muted mb-4 md:mb-0">
+                    &copy; 2024 Muhammad Syafwan Nabil. All rights reserved.
+                </p>
+                
+                <p class="text-center text-muted">
+                    Designed with <i class="fas fa-heart text-primary mx-1"></i> by Muhammad Syafwan Nabil
+                </p>
             </div>
         </div>
     </footer>
 
     <!-- Back to Top Button -->
-    <a href="#" id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 bg-primary text-light rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-secondary">
+    <a href="#" id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 bg-primary text-light rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-secondary z-50">
         <i class="fas fa-arrow-up"></i>
     </a>
 
     <!-- JavaScript -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
+        // Initialize AOS
+        AOS.init({
+            once: true,
+            disable: 'mobile'
+        });
+        
         // Mobile Menu Toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -796,31 +1523,108 @@
             });
         });
         
-        // Animate skill bars on scroll
-        const skillSection = document.getElementById('skills');
-        const progressBars = document.querySelectorAll('.progress-bar div');
-        let animated = false;
-        
-        window.addEventListener('scroll', () => {
-            if (isInViewport(skillSection) && !animated) {
-                progressBars.forEach(bar => {
-                    const width = bar.style.width;
-                    bar.style.width = '0';
-                    setTimeout(() => {
-                        bar.style.width = width;
-                    }, 100);
-                });
-                animated = true;
+        // Create particles for hero section
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            if (!particlesContainer) return;
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size
+                const size = Math.random() * 5 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                // Random animation
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                particle.style.animation = `floating ${duration}s ease-in-out ${delay}s infinite alternate`;
+                
+                particlesContainer.appendChild(particle);
             }
-        });
-        
-        function isInViewport(element) {
-            const rect = element.getBoundingClientRect();
-            return (
-                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.bottom >= 0
-            );
         }
+        
+        // Create cosmic dust particles
+        function createCosmicDust() {
+            const container = document.getElementById('cosmic-dust-container');
+            if (!container) return;
+            
+            for (let i = 0; i < 100; i++) {
+                const dust = document.createElement('div');
+                dust.classList.add('cosmic-dust');
+                
+                // Random size
+                const size = Math.random() * 2 + 0.5;
+                dust.style.width = `${size}px`;
+                dust.style.height = `${size}px`;
+                
+                // Random position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                dust.style.left = `${posX}%`;
+                dust.style.top = `${posY}%`;
+                
+                // Random opacity
+                dust.style.opacity = Math.random() * 0.7 + 0.3;
+                
+                // Random animation
+                const duration = Math.random() * 15 + 5;
+                const delay = Math.random() * 5;
+                dust.style.animation = `floating ${duration}s ease-in-out ${delay}s infinite alternate`;
+                
+                container.appendChild(dust);
+            }
+        }
+        
+        // Custom cursor
+        const cursor = document.querySelector('.custom-cursor');
+        const cursorFollower = document.querySelector('.custom-cursor-follower');
+        
+        if (cursor && cursorFollower) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            });
+            
+            // Change cursor size on links and buttons
+            document.querySelectorAll('a, button').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.style.width = '0px';
+                    cursor.style.height = '0px';
+                    cursorFollower.style.width = '60px';
+                    cursorFollower.style.height = '60px';
+                    cursorFollower.style.borderColor = 'rgba(99, 102, 241, 0.8)';
+                });
+                
+                el.addEventListener('mouseleave', () => {
+                    cursor.style.width = '20px';
+                    cursor.style.height = '20px';
+                    cursorFollower.style.width = '40px';
+                    cursorFollower.style.height = '40px';
+                    cursorFollower.style.borderColor = 'rgba(99, 102, 241, 0.5)';
+                });
+            });
+        }
+        
+        // Initialize particles and cosmic dust on load
+        window.addEventListener('load', () => {
+            createParticles();
+            createCosmicDust();
+        });
     </script>
 </body>
 </html>
